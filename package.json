@@ -1,0 +1,23 @@
+{
+  "name": "civic-flashcards",
+  "version": "1.0.0",
+  "description": "FWYM civic flashcards designed and developed by Bootstrap Commercial Arts",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bootstrap-Commercial-Arts/civic-flashcards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bootstrap-Commercial-Arts/civic-flashcards/issues"
+  },
+  "homepage": "https://github.com/Bootstrap-Commercial-Arts/civic-flashcards#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^0.12.1"
+  }
+}
