@@ -1,0 +1,28 @@
+<html><head>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://bstrap-css.netlify.app/bstrap.css"> 
+    <link rel="stylesheet" href="/CSS/style.css">
+    {% eleventyGoogleFonts 'https://fonts.googleapis.com/css2?family=Lato' %}
+    {% eleventyGoogleFonts 'https://fonts.googleapis.com/css2?family=Bebas+Neue' %}
+</head>
+<body>
+    <header id="header">
+	  <div id="headergrid">
+			<a class="home-nav" href="https://www.fightwithyourmind.org/"><img alt="current project" data-src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-6@2x.png" class="nav lazyloaded" src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-6@2x.png"></a>
+	    <img id="customlogo" alt="logo" title="logo" width="100%" height="auto" data-src="https://www.fightwithyourmind.org/wp-content/uploads/2019/10/logo.png" class="header-logo lazyloaded" src="https://www.fightwithyourmind.org/wp-content/uploads/2019/10/logo.png">
+			<a class="fighting-nav" href="https://www.fightwithyourmind.org/fighting"><img alt="browse content" data-src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-7@2x.png" class="nav lazyloaded" src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-7@2x.png"></a>
+	  </div>
+        <a id="pop-up-button" href="#">How do I use this?</a>
+        <h1 id="deck-title">{{title}}</h1>
+        <div id="control-bar">
+            <a id="sort" href="#">Sort</a>
+            <a id="filter" href="#">Filter</a>
+            <p id="deck-select-field">dropdown goes here</p>
+            <a href="#" id="deck-select-button">Select Deck</a>
+        </div>
+    </header>
+    <main>
+        {{content  | safe}}
+    </main>
+</body>
+</html>

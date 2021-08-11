@@ -19,5 +19,8 @@
   "homepage": "https://github.com/Bootstrap-Commercial-Arts/civic-flashcards#readme",
   "dependencies": {
     "@11ty/eleventy": "^0.12.1"
+  },
+  "devDependencies": {
+    "eleventy-google-fonts": "^0.0.5"
   }
 }

@@ -1,0 +1,179 @@
+/* global styles */
+html {
+    background-color: #eaeaea;
+}
+
+main {
+    padding: 2rem;
+}
+
+p {
+    font-family: lato;
+}
+
+a {
+    font-family: lato;
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+a:hover {
+    filter: brightness(0.8);
+}
+
+h1 {
+    font-family: bebas neue;
+    font-size: 5rem;
+    text-align: center;
+    color:#333333;
+}
+
+
+
+/* header styles */
+
+#headergrid{
+    background-color: rgb(51, 51, 51);
+    display: grid;
+    grid-template-columns: 220px 1fr 220px;
+    grid-template-rows: auto;
+    grid-template-areas: "home-nav header-logo fighting-nav";
+    width: 100vw;
+    -webkit-box-align: center;
+    align-items: center;
+    box-shadow: rgb(0 0 0 / 30%) 0px 8px 6px;
+    padding: 1rem;
+}
+
+.header-logo {
+    margin: auto;
+    min-width: 325px;
+    width: 66%;
+    max-width: 80vw;
+    grid-area: header-logo / header-logo / header-logo / header-logo;
+    padding: 10px;
+}
+
+#pop-up-button {
+    color: #888;
+    padding: .5rem 2rem;
+    border: solid 1.5px #888;
+    border-radius: 10px;
+    text-transform: uppercase;
+    position: absolute;
+    right: 10px;
+    margin: 1rem;
+    font-size: 1rem;
+}
+
+#deck-title {
+    margin-top:4rem;
+}
+
+#control-bar {
+    max-width: 95vw;
+    width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#sort, #filter {
+    border-bottom: 1px solid #333333;
+    padding: .25rem 1rem;
+    text-transform: uppercase;
+    margin: 1rem;
+    color: #333333;
+    font-size: 1.1rem;
+}
+
+#sort:after, #filter:after {
+    content:' >';
+}
+
+#deck-select-field {
+    padding: .75rem 1rem;
+    background-color: #ffffff;
+    border: 1.5px solid #aaaaaa;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin: 0 1rem;
+    flex-grow: 1;
+}
+
+#deck-select-button {
+    padding: .75rem 1rem;
+    background-color: E39600;
+    color: #333333;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+}
+
+
+
+/* card styling */
+
+.card {
+    background-color: transparent;
+    width: 300px;
+    height: 200px;
+    border: 1px solid #f1f1f1;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  }
+  
+  /* This container is needed to position the front and back side */
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .card-front {
+    background-color: #bbb;
+    color: black;
+  }
+
+  .card-front img {
+      width:100%;
+  }
+  
+  /* Style the back side */
+  .card-back {
+    background-color: dodgerblue;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+/* page styles */
+
+
+
+
+
+
+/* media queries */
+
+@media screen and (max-width: 680px) {
+    
+}
