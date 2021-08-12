@@ -7,14 +7,20 @@ main {
     padding: 2rem;
 }
 
+p, a, h1, h2, h3, h4, h5, h6 {
+    color:#333333;
+}
+
 p {
     font-family: lato;
+    font-weight: 300;
 }
 
 a {
     font-family: lato;
     text-decoration: none;
     font-size: 1.5rem;
+    font-weight: 300;
 }
 
 a:hover {
@@ -23,9 +29,7 @@ a:hover {
 
 h1 {
     font-family: bebas neue;
-    font-size: 5rem;
-    text-align: center;
-    color:#333333;
+
 }
 
 
@@ -68,6 +72,8 @@ h1 {
 
 #deck-title {
     margin-top:4rem;
+    font-size: 5rem;
+    text-align: center;
 }
 
 #control-bar {
@@ -106,7 +112,7 @@ h1 {
 
 #deck-select-button {
     padding: .75rem 1rem;
-    background-color: E39600;
+    background-color: #E39600;
     color: #333333;
     text-transform: uppercase;
     font-size: 1.1rem;
@@ -118,10 +124,9 @@ h1 {
 
 .card {
     background-color: transparent;
-    width: 300px;
-    height: 200px;
-    border: 1px solid #f1f1f1;
-    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+    width: 20rem;
+    height: 25rem;
+    perspective: 1000px;
   }
   
   /* This container is needed to position the front and back side */
@@ -129,9 +134,10 @@ h1 {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
+    width: 20rem;
+    height: 25rem;
   }
   
   /* Do an horizontal flip when you move the mouse over the flip box container */
@@ -152,18 +158,73 @@ h1 {
   .card-front {
     background-color: #bbb;
     color: black;
+    border-radius: 1rem;
+    border: .5rem solid #E39600;
+    overflow: hidden;
   }
 
   .card-front img {
       width:100%;
+      border-radius: .5rem;
   }
   
   /* Style the back side */
   .card-back {
-    background-color: dodgerblue;
-    color: white;
+    background-color: #ffffff;
     transform: rotateY(180deg);
+    border-radius: 1rem;
+    border: .5rem solid #E39600;
+    overflow: hidden;
   }
+
+  .card-header {
+      background-color: #eaeaea;
+      padding: 1rem;
+  }
+
+  .card-body {
+      padding: 1rem;
+  }
+
+  .card-back h1 {
+      font-size: 2.5rem;
+  }
+
+  .card-back h2 {
+      font-family: lato;
+      font-size: 1.5rem;
+  }
+
+  .card-back h3 {
+      font-family: lato;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .75rem;
+  }
+
+  .card-back p {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;;
+  }
+
+  .assumed-office, .reelection-year {
+      display: inline-block;
+      width: calc(50% - 1rem);
+  }
+  
+  .card-button {
+      margin: 1rem;
+      width: calc(100% - 4rem);
+      text-align: center;
+      text-transform: uppercase;
+      padding: 1rem;
+      font-size: 1rem;
+      background-color: #eaeaea;
+      position: absolute;
+      bottom: 0;
+  }
+
+
 
 /* page styles */
 
