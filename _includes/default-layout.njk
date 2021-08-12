@@ -2,7 +2,7 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="https://bstrap-css.netlify.app/bstrap.css"> 
     <link rel="stylesheet" href="/CSS/style.css">
-    {% eleventyGoogleFonts 'https://fonts.googleapis.com/css2?family=Lato&display=swap' %}
+    {% eleventyGoogleFonts 'https://fonts.googleapis.com/css2?family=Lato:wght@300;700' %}
     {% eleventyGoogleFonts 'https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap' %}
 </head>
 <body>
@@ -17,7 +17,14 @@
         <div id="control-bar">
             <a id="sort" href="#">Sort</a>
             <a id="filter" href="#">Filter</a>
-            <p id="deck-select-field">dropdown goes here</p>
+            <div class="deck-select-wrapper">
+                <button id="deck-select-field" onclick="myFunction()" class="dropbtn">dropdown goes here</button>
+                <div id="deck-select-dropdown" class="deck-select-dropdown-content">
+                    <a href="#">Link 1</a>
+                    <a href="#">Link 2</a>
+                    <a href="#">Link 3</a>
+                </div>
+            </div>
             <a href="#" id="deck-select-button">Select Deck</a>
         </div>
     </header>
@@ -26,3 +33,4 @@
     </main>
 </body>
 </html>
+<script type="text/javascript" src="/JS/dropdown.js"></script>

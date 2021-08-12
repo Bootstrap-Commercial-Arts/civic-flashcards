@@ -100,6 +100,28 @@ h1 {
     content:' >';
 }
 
+
+.deck-select-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.deck-select-dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+.deck-select-dropdown-content > a {
+    display: block;
+    padding: 1rem;
+}
+
+.show {display:block;}
+
 #deck-select-field {
     padding: .75rem 1rem;
     background-color: #ffffff;
@@ -117,6 +139,16 @@ h1 {
     text-transform: uppercase;
     font-size: 1.1rem;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -200,6 +232,7 @@ h1 {
       font-weight: 700;
       text-transform: uppercase;
       font-size: .75rem;
+      letter-spacing: .5;
   }
 
   .card-back p {
