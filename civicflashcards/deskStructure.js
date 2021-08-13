@@ -5,10 +5,10 @@ S.list()
     .title('Content')
     .items([
         S.listItem()
-            .title('Global')
+            .title('Global Values')
             .child(
                 S.list()
-                    .title('Global')
+                    .title('Global Values')
                     .items([
                     S.listItem()
                         .title('States')
@@ -55,9 +55,69 @@ S.list()
                             .child(),
                         ),
                     ])
-            )
+            ),
+
+        S.listItem()
+            .title('House')
+            .child(
+                S.list()
+                    .title('House')
+                    .items([
+                    S.listItem()
+                        .title('Representatives')
+                        .child(
+                            S.documentTypeList('representative')
+                            .title('Representative')
+                            .child(),
+                        ),
+                    S.listItem()
+                        .title('House Leadership')
+                        .child(
+                            S.documentTypeList('houseLeadership')
+                            .title('House Leadership Positions')
+                            .child(),
+                        ),
+                    S.listItem()
+                        .title('House Committee')
+                        .child(
+                            S.documentTypeList('houseCommittee')
+                            .title('House Committees')
+                            .child(),
+                        ),
+                    ])
+            ),
       
-    
+        S.listItem()
+            .title('Cabinet')
+            .child(
+                S.list()
+                    .title('Cabinet')
+                    .items([
+                    S.listItem()
+                        .title('Cabinet Members')
+                        .child(
+                            S.documentTypeList('cabinet')
+                            .title('Cabinet Members')
+                            .child(),
+                        )
+                    ])
+            ),
+
+        S.listItem()
+            .title('Supreme Court')
+            .child(
+                S.list()
+                    .title('Supreme Court')
+                    .items([
+                    S.listItem()
+                        .title('Justices')
+                        .child(
+                            S.documentTypeList('supremeCourt')
+                            .title('Justices')
+                            .child(),
+                        )
+                    ])
+            )
         
         
         ])
