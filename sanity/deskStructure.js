@@ -41,13 +41,6 @@ S.list()
                             .child(),
                         ),
                     S.listItem()
-                        .title('Senate Leadership')
-                        .child(
-                            S.documentTypeList('senateLeadership')
-                            .title('Senate Leadership Positions')
-                            .child(),
-                        ),
-                    S.listItem()
                         .title('Senate Committee')
                         .child(
                             S.documentTypeList('senateCommittee')
@@ -68,13 +61,6 @@ S.list()
                         .child(
                             S.documentTypeList('representative')
                             .title('Representative')
-                            .child(),
-                        ),
-                    S.listItem()
-                        .title('House Leadership')
-                        .child(
-                            S.documentTypeList('houseLeadership')
-                            .title('House Leadership Positions')
                             .child(),
                         ),
                     S.listItem()

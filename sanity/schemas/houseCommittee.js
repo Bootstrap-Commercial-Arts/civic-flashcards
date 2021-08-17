@@ -27,6 +27,18 @@ export default {
                         ]
                     }
                 ]
+          },
+          {
+            name: 'members',
+            title: 'Members',
+            type: 'array',
+                of: [
+                    {type: 'reference',
+                        to: [
+                            {type:'representative'}
+                        ]
+                    }
+                ]
           }
     ]
   }

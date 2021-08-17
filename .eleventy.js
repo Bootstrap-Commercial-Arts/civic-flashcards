@@ -8,3 +8,4 @@ module.exports = function(eleventyConfig) {
     eleventyConfig.addPlugin(eleventyGoogleFonts);    
     eleventyConfig.addPlugin(faviconPlugin);
 };
+

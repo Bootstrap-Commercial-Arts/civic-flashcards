@@ -1,11 +1,11 @@
 export default {
-    name: 'representative',
-    title: 'United States Representatives',
+    name: 'senator',
+    title: 'United States Senators',
     type: 'document',
     fields: [
         {
-          name: 'representativeName',
-          title: 'Representative Name',
+          name: 'senatorName',
+          title: 'Senator Name',
           type: 'string'
         },
         {
@@ -25,39 +25,23 @@ export default {
               ]
           },
           {
-            name: 'district',
-            title: 'District',
-            type: 'string',
-          },
-          {
             name: 'leadershipPositions',
             title: 'Leadership Positions',
             type: 'array',
               of: [
                 {
-                  type: 'reference',
-                  to: [
-                    {type: 'houseLeadership'}
-                  ]
-                }
-              ]
-          },
-          {
-            name: 'committeeAssignments',
-            title: 'Committee Assignments',
-            type: 'array',
-              of: [
-                {
-                  type: 'reference',
-                  to: [
-                    {type: 'houseCommittee'}
-                  ]
+                  type: 'string',
                 }
               ]
           },
           {
             name: 'assumedOffice',
             title: 'Assumed Office',
+            type: 'number'
+          },
+          {
+            name: 'reelectionYear',
+            title: 'Reelection Year',
             type: 'number'
           },
           {

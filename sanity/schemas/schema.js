@@ -4,14 +4,12 @@ import createSchema from 'part:@sanity/base/schema-creator'
 // Then import schema types from any plugins that might expose them
 import schemaTypes from 'all:part:@sanity/base/schema-type'
 
-import senator from './senator.js'
-import senateCommittee from './senateCommittee.js'
-import senateLeadership from './senateLeadership.js'
 import statesList from './states.js'
 import partyList from './parties.js'
+import senator from './senator.js'
+import senateCommittee from './senateCommittee.js'
 import representative from './representative.js'
 import houseCommittee from './houseCommittee'
-import houseLeadership from './houseLeadership.js'
 import cabinet from './cabinet.js'
 import supremeCourt from './supremeCourt.js'
 
@@ -22,6 +20,6 @@ export default createSchema({
   // Then proceed to concatenate our document type
   // to the ones provided by any plugins that are installed
   types: schemaTypes.concat([
-   senator, senateCommittee, senateLeadership, statesList, partyList, representative, houseCommittee, houseLeadership, cabinet, supremeCourt
+   senator, senateCommittee, statesList, partyList, representative, houseCommittee, cabinet, supremeCourt
   ]),
 })
