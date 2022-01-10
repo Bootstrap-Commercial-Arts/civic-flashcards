@@ -37,6 +37,11 @@ export default {
             type: 'url'
           },
           {
+            name: 'cardLink2',
+            title: 'Link',
+            type: 'url'
+          },
+          {
             name: 'cardBackImage',
             title: 'Card Back Image',
             type: 'image'
