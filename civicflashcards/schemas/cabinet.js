@@ -33,12 +33,12 @@ export default {
           },
           {
             name: 'cardLink',
-            title: 'Link',
+            title: 'Wiki Link',
             type: 'url'
           },
           {
             name: 'cardLink2',
-            title: 'Link',
+            title: 'Department Link',
             type: 'url'
           },
           {

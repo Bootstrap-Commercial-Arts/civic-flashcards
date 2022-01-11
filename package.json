@@ -18,12 +18,10 @@
   },
   "homepage": "https://github.com/Bootstrap-Commercial-Arts/civic-flashcards#readme",
   "dependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "eleventy-favicon": "^1.1.1",
-    "sharp": "^0.28.3",
-    "to-ico": "^1.1.5"
+    "cors": "^2.8.5",
+    "express": "^4.17.2"
   },
   "devDependencies": {
-    "eleventy-google-fonts": "^0.0.5"
+    "nodemon": "^2.0.15"
   }
 }
