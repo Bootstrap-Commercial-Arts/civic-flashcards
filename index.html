@@ -179,7 +179,7 @@
                             cardButton.target = "_blank";
                             cardBack.append(cardButton);
                         } 
-                        else if(result._type === "justice"){
+                        else if(result._type === "supremeCourt"){
                             //Card-header div 
                             var cardHeader = document.createElement("div");
                             cardHeader.setAttribute("class", "card-header");
@@ -222,7 +222,7 @@
 
                                     //Leadership positions label
                                     var memberSinceLabel = document.createElement("h3");
-                                    memberSinceLabel.innerHTML = "Member Since"
+                                    memberSinceLabel.innerHTML = "Justice Since"
                                     memberSince.append(memberSinceLabel);
 
                                     //Leadership positions content
@@ -505,12 +505,12 @@
                             main.append(cardGrid))
                 } else if (params.type === 'all'){
                     let encodedFilter = encodeURIComponent('[_type in ["cabinet", "representative", "supremeCourt", "senator"]]');
-                    let encodedProjection = encodeURIComponent(`
-                        _type == "cabinet" =&gt; {"_type, cabinetName, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage"}, 
-                        _type == "representative" =&gt; {"_type, representativeName, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage"}, 
-                        _type == "supremeCourt" =&gt; {"_type, circuitAssignments[], justiceName, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage"}, 
-                        _type == "senator" =&gt; {"_type, senatorName, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage"}`
-                    )
+let encodedProjection = encodeURIComponent(`
+                        _type == "cabinet" => {_type, cabinetName, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage}, 
+                        _type == "representative" => {_type, representativeName, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage}, 
+                        _type == "supremeCourt" => {_type, circuitAssignments[], justiceName, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage}, 
+                        _type == "senator" => {_type, senatorName, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage}
+                    `)
                         fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
                         .then(res => res.json())
                         .then(justice => justice.result.forEach((item)=>{
