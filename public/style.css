@@ -1,0 +1,496 @@
+/* global styles */
+html {
+    background-color: #eaeaea;
+}
+
+main {
+    padding: 2rem;
+}
+
+p, a, h1, h2, h3, h4, h5, h6 {
+    color:#333333;
+}
+
+h3, h4, h5, h6 {
+    font-family: lato;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .1rem;
+}
+
+p, label, span {
+    font-family: lato;
+    font-weight: 300;
+}
+
+a {
+    font-family: lato;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+a:hover {
+    filter: brightness(0.8);
+}
+
+button, input {
+    cursor: pointer;
+    border: none;
+    background-color: unset;
+}
+
+button:hover {
+    filter: brightness(0.9);
+}
+
+label {
+    font-size: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+h1 {
+    font-family: bebas neue;
+
+}
+
+
+
+/* header styles */
+
+#headergrid{
+    background-color: rgb(51, 51, 51);
+    display: grid;
+    grid-template-columns: 20rem 1fr 20rem;
+    grid-template-rows: auto;
+    grid-template-areas: "home-nav header-logo fighting-nav";
+    width: calc(100vw - 2rem);
+    -webkit-box-align: center;
+    align-items: center;
+    box-shadow: rgb(0 0 0 / 30%) 0px 8px 6px;
+    padding: 1rem;
+}
+
+.header-logo {
+    margin: auto;
+    max-width: 40rem;
+    grid-area: header-logo / header-logo / header-logo / header-logo;
+    padding: 1rem;
+}
+
+.fighting-nav {
+    justify-self: end;
+}
+
+.fighting-nav img, .home-nav img {
+    width:20rem;
+}
+
+#modal-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40rem;
+    z-index: 998;
+}
+
+#modal-content {  
+    padding: 2rem;
+    background-color: #ffffff;
+}
+
+#modal-overlay {
+    width: 100vw;
+    height: 100vh;
+    z-index: 997;
+    background-color: rgba(0,0,0,0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+#modal-close {
+    z-index: 999;
+    font-family: lato;
+    display: inline-block;
+    background-color: #eaeaea;
+    padding: 1rem;
+    margin-bottom: 3rem;
+    position:absolute;
+    right: 0;
+    top: -100%;
+    cursor: pointer;
+
+}
+
+
+#pop-up-button {
+    color: #888;
+    padding: .5rem 2rem;
+    border: solid 1.5px #888;
+    border-radius: 10px;
+    text-transform: uppercase;
+    position: absolute;
+    right: 10px;
+    margin: 2rem 1rem;
+    font-size: 1rem;
+    background-color: #eaeaea;
+}
+
+#deck-title {
+    margin-top:6rem;
+    font-size: 5rem;
+    text-align: center;
+}
+
+#control-bar {
+    max-width: 95vw;
+    width: 80rem;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+#filter-sort {
+    border-bottom: 1px solid #333333;
+    padding: .25rem 1rem;
+    text-transform: uppercase;
+    margin: 1rem;
+    color: #333333;
+    font-size: 1.1rem;
+}
+
+#filter-sort:after {
+    content:' >';
+}
+
+#filter-sort-dropdown h3 {
+    display: block;
+    padding: 0.5rem 1rem;
+    background-color: #333333;
+    color: #ffffff;
+}
+
+#two-columns {
+    display: flex;
+}
+
+#two-columns > #filter-wrap {
+    border-right: #333333 solid 1px;
+}
+
+#two-columns > div {
+    width: 20rem;
+}
+
+#filter-sort-submit {
+    width: calc(100% - 1rem);
+    padding: 1rem;
+    background-color: #cccccc;
+    margin: 0.5rem;
+    font-family: 'Lato';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+#filter-sort-submit:hover {
+    filter: brightness(.8);
+}
+
+.deck-select-wrapper {
+    position: relative;
+    display: inline-block;
+    flex-grow: 1;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    margin-left: 1rem;
+  }
+
+.dropdown-group h4 {
+    margin: 1rem 1rem 0;
+}
+
+.dropdown-group-items {
+    border-bottom: #333333 solid 1px;
+    margin: 0 1rem;
+}
+
+.dropdown-content .dropdown-item {
+    padding: .5rem;
+}
+
+.dropdown-item.number {
+    display: flex;
+    justify-content: space-between;
+}
+
+.number input {
+    border: #cccccc solid 1px;
+    width: 7rem;
+}
+
+.radio:hover, .checkbox:hover {
+    background-color: #eaeaea;
+}
+
+.checkbox, .radio {
+    filter: grayscale(1);
+}
+
+.show {display:block;}
+
+#deck-select-field {
+    padding: .75rem 1rem;
+    background-color: #ffffff;
+    border: 1.5px solid #aaaaaa;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    margin: 0 1rem;
+    color:#333333;
+    font-weight: 700;
+    width:calc(100% - 2.4rem);
+    text-align: left;
+}
+
+#deck-select-dropdown {
+    width: calc(100% - 2.4rem);
+}
+
+#deck-select-dropdown > span {
+    text-align: right;
+}
+
+#deck-select-button {
+    padding: .75rem 1rem;
+    background-color: #E39600;
+    color: #333333;
+    text-transform: uppercase;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* card styling */
+
+.card {
+    background-color: transparent;
+    width: 20rem;
+    height: 25rem;
+    perspective: 1000px;
+  }
+  
+  /* This container is needed to position the front and back side */
+  .card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    width: 20rem;
+    height: 25rem;
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .card:hover .card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .card-front {
+    background-color: #bbb;
+    color: black;
+    border-radius: 1rem;
+    border: .5rem solid #E39600;
+    overflow: hidden;
+  }
+
+  .card-front img {
+      width:100%;
+      border-radius: .5rem;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+  }
+  
+  /* Style the back side */
+  .card-back {
+    background-color: #ffffff;
+    transform: rotateY(180deg);
+    border-radius: 1rem;
+    border: .5rem solid #E39600;
+    overflow: hidden;
+  }
+
+  .card-header {
+      background-color: #eaeaea;
+      padding: 1rem;
+  }
+
+  .card-body {
+      padding: 1rem;
+  }
+
+  .card-back h1 {
+      font-size: 2.5rem;
+  }
+
+  .card-back h2 {
+      font-family: lato;
+      font-size: 1.5rem;
+  }
+
+  .card-back h3 {
+      font-family: lato;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: .75rem;
+      letter-spacing: .5px;
+  }
+
+  .card-back p {
+      font-size: 1.25rem;
+      margin-bottom: .75rem;;
+  }
+
+  .assumed-office, .reelection-year {
+      display: inline-block;
+      width: calc(50% - 1rem);
+  }
+
+  .segal-cover h3 {
+    display: inline;
+  }
+
+  .segal-cover-question {
+    font-size: .75rem;
+    margin-left: 0.25rem;
+    border: #888888 solid 1px;
+    padding: 0rem 0.25rem;
+    border-radius: 1rem;
+  }
+
+  .segal-cover-bar {
+    height: 0.5rem;
+    width: 100%;
+    background-color: #E6E6E6;
+    margin: 0.75rem 0 0.25rem;
+}
+
+.segal-cover-number-wrap {
+    background-color: white;
+    border: #888888 solid 1px;
+    margin-top: -1.35rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.segal-cover-number-wrap p {
+    font-size: .8rem;
+    margin-top: 0.3rem;
+}
+
+.segal-cover-bottom-labels {
+    font-size: .75rem !important;
+    font-weight: 700;
+    display: flex;
+}
+
+.segal-cover-conservative {
+    justify-self: end;
+    flex-grow: .7;
+}
+
+.segal-cover-center {
+    justify-self: center;
+    flex-grow: 0;
+}
+
+.segal-cover-liberal {
+    justify-self: end;
+    text-align: right;
+    flex-grow: 1;
+}
+
+  .card-button {
+      margin: 1rem;
+      width: calc(100% - 4rem);
+      text-align: center;
+      text-transform: uppercase;
+      padding: 1rem;
+      font-size: 1rem;
+      background-color: #eaeaea;
+      position: absolute;
+      bottom: 0;
+  }
+
+  .button2 {
+    bottom: 4rem;
+}
+
+
+
+/* page styles */
+
+#card-grid{
+            grid-auto-flow: row; 
+            grid-template-columns: 1fr 1fr 1fr 1fr; 
+            grid-auto-rows: auto; 
+            gap: 4rem 2rem; 
+}
+
+
+
+
+/* media queries */
+
+@media screen and (max-width: 680px) {
+    #headergrid{
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        grid-template-areas: "home-nav fighting-nav" "header-logo header-logo";
+        width: calc(100vw - 2rem);
+        -webkit-box-align: center;
+        align-items: center;
+        box-shadow: rgb(0 0 0 / 30%) 0px 8px 6px;
+        padding: 1rem;
+    }
+
+    #card-grid{
+        grid-auto-flow: row; 
+        grid-template-columns: 1fr 1fr; 
+        grid-auto-rows: auto; 
+    }
+
+}

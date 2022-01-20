@@ -18,20 +18,111 @@
             <img alt="browse content" data-src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-7@2x.png" src="https://fightwithyourmind.org/wp-content/uploads/2021/04/Asset-7@2x.png">
         </a>
 	  </div>
-        <a id="pop-up-button" href="#">How do I use this?</a>
+        <button id="pop-up-button">How do I use this?</button>
         <h1 id="deck-title">Civic Flashcards</h1>
         <div id="control-bar">
-            <a id="sort" href="#">Sort</a>
-            <a id="filter" href="#">Filter</a>
-            <div class="deck-select-wrapper">
-                <button id="deck-select-field">dropdown goes here</button>
-                <div id="deck-select-dropdown" class="deck-select-dropdown-content" style="display: none">
-                    <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a>
+            <div class="filter-sort-wrapper">
+                <button id="filter-sort">Filter & Sort</button>
+                <div id="filter-sort-dropdown" class="dropdown-content" style="display: none">
+                    <div id="two-columns">
+                        <div id="filter-wrap">
+                            <h3>Filter</h3>
+                            <div class="dropdown-group">
+                                <h4>State</h4>
+                                <div class="dropdown-group-items">
+                                    <div class="dropdown-item checkbox">
+                                        <input type="checkbox" id="senators" name="senators">
+                                        <label for="senators">Alaska</label>
+                                    </div>
+                                    <div class="dropdown-item checkbox">
+                                        <input type="checkbox" id="representatives" name="representatives">
+                                        <label for="representatives">Alabama</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-group">
+                                <h4>Party</h4>
+                                <div class="dropdown-group-items">
+                                    <div class="dropdown-item checkbox">
+                                        <input type="checkbox" id="democrat" name="democrat">
+                                        <label for="democrat">Democrat</label>
+                                    </div>
+                                    <div class="dropdown-item checkbox">
+                                        <input type="checkbox" id="republican" name="republican">
+                                        <label for="republican">Republican</label>
+                                    </div>
+                                    <div class="dropdown-item checkbox">
+                                        <input type="checkbox" id="independent" name="independent">
+                                        <label for="independent">Independent</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dropdown-group">
+                                <h4>Member Since</h4>
+                                <div class="dropdown-group-items">
+                                    <div class="dropdown-item number">
+                                        <input type="number"  id="min" name="min">
+                                        <span> to </span>
+                                        <input type="number" id="max" name="max">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="sort-wrap">
+                            <h3>Sort</h3>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="name-sort" name="sort">
+                                <label for="name-sort">Name (a-z)</label>
+                            </div>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="name2-sort" name="sort">
+                                <label for="name2-sort">Name (z-a)</label>
+                            </div>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="member-since-sort" name="sort">
+                                <label for="member-since-sort">Member Since (asc)</label>
+                            </div>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="member-since2-sort" name="sort">
+                                <label for="member-since2-sort">Member Since (desc)</label>
+                            </div>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="state-sort" name="sort">
+                                <label for="state-sort">State</label>
+                            </div>
+                            <div class="dropdown-item radio">
+                                <input type="radio" id="party-sort" name="sort">
+                                <label for="party-sort">Party</label>
+                            </div>
+                        </div>
+                    </div>
+                    <input id="filter-sort-submit" type="submit" value="See Results">
                 </div>
             </div>
-            <a href="#" id="deck-select-button">Select Deck</a>
+            
+            <div class="deck-select-wrapper">
+                <button id="deck-select-field">Select your decks</button>
+                <div id="deck-select-dropdown" class="dropdown-content" style="display: none">
+                    <div class="dropdown-item checkbox">
+                        <input type="checkbox" id="senators" name="senators">
+                        <label for="senators">U.S. Senators</label>
+                    </div>
+                    <div class="dropdown-item checkbox">
+                        <input type="checkbox" id="representatives" name="representatives">
+                        <label for="representatives">U.S. Representatives</label>
+                    </div>
+                    <div class="dropdown-item checkbox">
+                        <input type="checkbox" id="justices" name="justices">
+                        <label for="justices">Supreme Court Justices</label>
+                    </div>
+                    <div class="dropdown-item checkbox">
+                        <input type="checkbox" id="secretaries" name="secretaries">
+                        <label for="secretaries">Cabinet Secretaries</label>
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="Deal Cards" id="deck-select-button">
         </div>
     </header>
     <main id="main">
@@ -42,13 +133,147 @@
         </div>
     </main>
 
-        <script type="text/javascript" src="/toolbar.js"></script>
+        <script type="text/javascript" src="https://honest-utilities.netlify.app/honest.js"></script>
         <script>
-            //Set up layout vars
+            //Calling functions from honest.js
+            displayToggle('pop-up-button', 'modal-wrap', {funcStyle: 'modal'});
+            modalOnLoad('modal-wrap');
+            displayToggle('deck-select-field', 'deck-select-dropdown', {funcStyle: 'easyHide'});
+            displayToggle('filter-sort', 'filter-sort-dropdown', {funcStyle: 'easyHide'});
+
+
+            //Set up layout vars for filter & sort menu
+            var filterWrap = document.getElementById("filter-wrap");
+            var sortWrap = document.getElementById("sort-wrap");
+            var twoColumns = document.getElementById("two-columns")
+
+            //Filter menu item creation
+            var createFilterMenu = function(resultFields){
+
+                //Filter title
+                var filterTitle = document.createElement("h3");
+                filterTitle.innerHTML = 'Filter';
+                filterWrap.append(filterTitle);
+                
+                //Dropdown group
+                resultFields.forEach(function(field, index){
+                    var dropdownGroup = document.createElement("div");
+                    dropdownGroup.setAttribute("class", "dropdown-group");
+
+                        //Group title
+                        var dropdownGroupTitle = document.createElement("h4");
+                        dropdownGroupTitle.innerHTML = resultFields.filter;
+                        dropdownGroup.append(dropdownGroupTitle);
+
+                        //Group items
+                        var dropdownGroupItems = document.createElement("div");
+                        dropdownGroupItems.setAttribute("class", "dropdown-group-items");
+                        dropdownGroup.append(dropdownGroupItems);
+
+                            //individual item
+                            field.forEach(function(item){
+                                var dropdownItem = document.createElement("div");
+                                dropdownItem.setAttribute("class", "dropdown-item");
+                                dropdownItem.setAttribute("class", item.type);
+                                dropdownGroupItems.append(dropdownItem);
+                                
+                                //content according to field type
+                                if(item.type === 'checkbox'){
+                                    //create input
+                                    var input = document.createElement("input");
+                                    input.setAttribute("type", "checkbox");
+                                    input.setAttribute("id", item);
+                                    input.setAttribute("name", field)
+                                    dropdownItem.append(input);
+                                    //create label
+                                    var label = document.createElement("label");
+                                    label.setAttribute("for", item);
+                                    label.innerHTML = item;
+                                    dropdownItem.append(label)
+                                } else if(item.type === 'number'){
+                                    //create min input
+                                    var minInput = document.createElement("input");
+                                    minInput.setAttribute("type", "number");
+                                    minInput.setAttribute("id", "min");
+                                    minInput.setAttribute("name", item);
+                                    dropdownItem.append(minInput);
+                                    //create 'to' span
+                                    var to = document.createElement("span");
+                                    to.innerHTML = 'to';
+                                    dropdownItem.append(to);
+                                    //create max input
+                                    var maxInput = document.createElement("input");
+                                    maxInput.setAttribute("type", "number");
+                                    maxInput.setAttribute("id", "max");
+                                    maxInput.setAttribute("name", item);
+                                    dropdownItem.append(maxInput);
+
+                                };
+                            });
+                });
+            
+                twoColumns.append(filterWrap);
+            };
+
+            //sort menu item creation
+            var createsortMenu = function(resultFields){
+
+                //Filter title
+                var sortTitle = document.createElement("h3");
+                sortTitle.innerHTML = 'Sort';
+                sortWrap.append(sortTitle);
+
+                //Dropdown group
+                resultFields.forEach(function(field, index){
+                    var dropdownGroup = document.createElement("div");
+                    dropdownGroup.setAttribute("class", "dropdown-group");
+
+                        //Group title
+                        var dropdownGroupTitle = document.createElement("h4");
+                        dropdownGroupTitle.innerHTML = resultFields.sort;
+                        dropdownGroup.append(dropdownGroupTitle);
+
+                        //Group items
+                        var dropdownGroupItems = document.createElement("div");
+                        dropdownGroupItems.setAttribute("class", "dropdown-group-items");
+                        dropdownGroup.append(dropdownGroupItems);
+
+                            //individual item
+                            field.forEach(function(item){
+                                var dropdownItem = document.createElement("div");
+                                dropdownItem.setAttribute("class", "dropdown-item");
+                                dropdownItem.setAttribute("class", item.type);
+                                dropdownGroupItems.append(dropdownItem);
+                                
+                                //create input
+                                var input = document.createElement("input");
+                                input.setAttribute("type", "radio");
+                                input.setAttribute("id", item);
+                                input.setAttribute("name", field)
+                                dropdownItem.append(input);
+                                
+                                //create label
+                                var label = document.createElement("label");
+                                label.setAttribute("for", item);
+                                label.innerHTML = item;
+                                dropdownItem.append(label)
+                                
+                            });
+                    });
+                
+                twoColumns.append(sortWrap);
+            };
+
+            
+
+
+            //Set up layout vars for card creation
             var main = document.getElementById("main");
             var cardGrid = document.createElement("div");
             cardGrid.setAttribute("class", "grid-row");
-            cardGrid.setAttribute("id", "card-grid")
+            cardGrid.setAttribute("id", "card-grid");
+
+
 
             //Individual card structure creation
             var createCard = function(result){
@@ -85,10 +310,10 @@
                             cardHeader.setAttribute("class", "card-header");
                             cardBack.append(cardHeader);
 
-                                //SenatorName
-                                var senatorName = document.createElement("h1");
-                                senatorName.innerHTML = result.senatorName;
-                                cardHeader.append(senatorName);
+                                //Name
+                                var name = document.createElement("h1");
+                                name.innerHTML = result.name;
+                                cardHeader.append(name);
 
                                 //Party & State
                                 var partyAndState = document.createElement("h2");
@@ -186,9 +411,9 @@
                             cardBack.append(cardHeader);
 
                                 //Name
-                                var justiceName = document.createElement("h1");
-                                justiceName.innerHTML = result.justiceName;
-                                cardHeader.append(justiceName);
+                                var name = document.createElement("h1");
+                                name.innerHTML = result.name;
+                                cardHeader.append(name);
 
                                 //Position
                                 var position = document.createElement("h2");
@@ -310,9 +535,9 @@
                             cardBack.append(cardHeader);
 
                                 //Name
-                                var representativeName = document.createElement("h1");
-                                representativeName.innerHTML = result.representativeName;
-                                cardHeader.append(representativeName);
+                                var name = document.createElement("h1");
+                                name.innerHTML = result.name;
+                                cardHeader.append(name);
 
                                 //Party & State & District
                                 var partyStateDistrict = document.createElement("h2");
@@ -395,9 +620,9 @@
                             cardBack.append(cardHeader);
 
                                 //Name
-                                var cabinetName = document.createElement("h1");
-                                cabinetName.innerHTML = result.cabinetName;
-                                cardHeader.append(cabinetName);
+                                var name = document.createElement("h1");
+                                name.innerHTML = result.name;
+                                cardHeader.append(name);
 
                                 //Position
                                 var position = document.createElement("h2");
@@ -460,65 +685,60 @@
                 return card;
             };
 
-            
+// FETCH QUERY SCRIPT
 
-            //Fetch & loop over data, append to DOM
-            window.onload=function(){
-                const urlSearchParams = new URLSearchParams(window.location.search);
-                const params = Object.fromEntries(urlSearchParams.entries())
+            //Set up query vars
+            const projectId = '6dyl9k59';
+            const apiDate = 'v2022-01-01';
+            const dataSet = 'production';
+            const encodedProjection = encodeURIComponent(`_type == 'cabinet' => {_type, name, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage}, _type == 'representative' => {_type, name, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage}, _type == 'supremeCourt' => {_type, circuitAssignments[], name, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage}, _type == 'senator' => {_type, name, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage}`);
+            const type = params.type.replace(' ', ', ');
+            const decodedFilter = decodeURI(params.filter);
+            const preFilter = decodedFilter.replace('+', ' && ');
+            const filter = preFilter.replace('_', ' == ');
+            let leftFilter;
+            let rightFilter;
+            let encodedFilter;
+              
             
-                if(params.type === 'senators') {
-                    let encodedFilter = encodeURIComponent('[_type == "senator"]');
-                    let encodedProjection = encodeURIComponent("_type, senatorName, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage")
-                        fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
-                        .then(res => res.json())
-                        .then(senators => senators.result.forEach((item)=>{
-                                cardGrid.append(createCard(item));
-                            }),
-                            main.append(cardGrid))
-                } else if (params.type === 'justices'){
-                    let encodedFilter = encodeURIComponent('[_type == "supremeCourt"]');
-                    let encodedProjection = encodeURIComponent("_type, circuitAssignments[], justiceName, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage")
-                        fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
-                        .then(res => res.json())
-                        .then(justice => justice.result.forEach((item)=>{
-                                cardGrid.append(createCard(item));
-                            }),
-                            main.append(cardGrid))
-                } else if (params.type === 'representatives'){
-                    let encodedFilter = encodeURIComponent('[_type == "representative"]');
-                    let encodedProjection = encodeURIComponent("_type, representativeName, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage")
-                        fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
-                        .then(res => res.json())
-                        .then(justice => justice.result.forEach((item)=>{
-                                cardGrid.append(createCard(item));
-                            }),
-                            main.append(cardGrid))
-                } else if (params.type === 'secretaries'){
-                    let encodedFilter = encodeURIComponent('[_type == "cabinet"]');
-                    let encodedProjection = encodeURIComponent("_type, cabinetName, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage")
-                        fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
-                        .then(res => res.json())
-                        .then(justice => justice.result.forEach((item)=>{
-                                cardGrid.append(createCard(item));
-                            }),
-                            main.append(cardGrid))
-                } else if (params.type === 'all'){
-                    let encodedFilter = encodeURIComponent('[_type in ["cabinet", "representative", "supremeCourt", "senator"]]');
-let encodedProjection = encodeURIComponent(`
-                        _type == "cabinet" => {_type, cabinetName, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage}, 
-                        _type == "representative" => {_type, representativeName, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage}, 
-                        _type == "supremeCourt" => {_type, circuitAssignments[], justiceName, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage}, 
-                        _type == "senator" => {_type, senatorName, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage}
-                    `)
-                        fetch(`https://6dyl9k59.api.sanity.io/v2022-01-01/data/query/production?query=*${encodedFilter}{${encodedProjection}}`)
-                        .then(res => res.json())
-                        .then(justice => justice.result.forEach((item)=>{
-                                cardGrid.append(createCard(item));
-                            }),
-                            main.append(cardGrid))
+            //check for filter parameters
+            function createFilter(){
+                if(params.filter) {
+                    leftFilter = `[_type in [${type}] && ${filter}]`;
+                } else {
+                    leftFilter = `[_type in [${type}]]`;
                 }
+                return leftFilter;
             };
+            
+            createFilter();
+
+
+            //check for sorting parameters, then create encoded filter
+            function createSort() {
+                if(params.sort) {
+                    const sort = params.sort.replace('_', ' ')
+                     rightFilter = `order(${sort})`;
+                     encodedFilter = encodeURIComponent(`${leftFilter} | ${rightFilter}`);
+                     console.log(`${leftFilter} | ${rightFilter}`)
+                } else {
+                     encodedFilter = encodeURIComponent(leftFilter);
+                     console.log(`${leftFilter}`)
+                }
+                return encodedFilter;
+            }
+
+            createSort();
+         
+
+            //fetch data & call the createCard function
+            fetch(`https://${projectId}.api.sanity.io/${apiDate}/data/query/${dataSet}?query=*${encodedFilter}{${encodedProjection}}`)
+            .then(res => res.json())
+            .then(cardData => cardData.result.forEach((item)=>{
+                    cardGrid.append(createCard(item));
+                }),
+                main.append(cardGrid));
+
         </script>
     </body>
 </html>
