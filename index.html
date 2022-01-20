@@ -25,7 +25,7 @@
                 <button id="filter-sort">Filter & Sort</button>
                 <div id="filter-sort-dropdown" class="dropdown-content" style="display: none">
                     <div id="two-columns">
-                        <div id="filter-wrap">
+                        <!--<div id="filter-wrap">
                             <h3>Filter</h3>
                             <div class="dropdown-group">
                                 <h4>State</h4>
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div id="sort-wrap">
                             <h3>Sort</h3>
                             <div class="dropdown-item radio">
@@ -143,26 +143,46 @@
 
 
             //Set up layout vars for filter & sort menu
-            var filterWrap = document.getElementById("filter-wrap");
-            var sortWrap = document.getElementById("sort-wrap");
-            var twoColumns = document.getElementById("two-columns")
+            var twoColumns = document.getElementById("two-columns");
+
+            //potential sort/filter fields
+            var potentialSort = ['name', 'memberSince', 'party', 'state'];
+            var potentialFilter = ['memberSince', 'party', 'state', 'senateCommittee', 'houseCommittee'];
+
+            //go over data & match potential sort/filter fields with found fields
+
+            //fake found data for testing:
+            var matchedSort = ['name', 'memberSince', 'party', 'state'];
+            var matchedFilter = {memberSince:[2005, 2009, 2006, 2010, 1991, 2020, 2017, 1994, 2018], position:['Associate Justice', 'Chief Justice']};
 
             //Filter menu item creation
-            var createFilterMenu = function(resultFields){
+            var createFilterMenu = function(){
+
+                //Filter Wrap
+                var filterWrap = document.createElement("div");
+                filterWrap.setAttribute("id", "filter-wrap")
 
                 //Filter title
                 var filterTitle = document.createElement("h3");
                 filterTitle.innerHTML = 'Filter';
                 filterWrap.append(filterTitle);
                 
+
+//Diagnostic console logging
+Object.entries(matchedFilter).forEach(entry => {
+const [key, value] = entry;
+console.log(key, value);
+});
+
                 //Dropdown group
-                resultFields.forEach(function(field, index){
+                Object.entries(matchedFilter).forEach(entry => {
+                    const [key, value] = entry;
                     var dropdownGroup = document.createElement("div");
                     dropdownGroup.setAttribute("class", "dropdown-group");
 
                         //Group title
                         var dropdownGroupTitle = document.createElement("h4");
-                        dropdownGroupTitle.innerHTML = resultFields.filter;
+                        dropdownGroupTitle.innerHTML = key;
                         dropdownGroup.append(dropdownGroupTitle);
 
                         //Group items
@@ -171,31 +191,32 @@
                         dropdownGroup.append(dropdownGroupItems);
 
                             //individual item
-                            field.forEach(function(item){
+                            entry.forEach(function(value){
                                 var dropdownItem = document.createElement("div");
                                 dropdownItem.setAttribute("class", "dropdown-item");
-                                dropdownItem.setAttribute("class", item.type);
+                                dropdownItem.setAttribute("class", value);
                                 dropdownGroupItems.append(dropdownItem);
+
                                 
                                 //content according to field type
-                                if(item.type === 'checkbox'){
+                                if(isNaN(value)){
                                     //create input
                                     var input = document.createElement("input");
                                     input.setAttribute("type", "checkbox");
-                                    input.setAttribute("id", item);
-                                    input.setAttribute("name", field)
+                                    input.setAttribute("id", value);
+                                    input.setAttribute("name", key)
                                     dropdownItem.append(input);
                                     //create label
                                     var label = document.createElement("label");
-                                    label.setAttribute("for", item);
-                                    label.innerHTML = item;
+                                    label.setAttribute("for", value);
+                                    label.innerHTML = value;
                                     dropdownItem.append(label)
-                                } else if(item.type === 'number'){
+                                } else {
                                     //create min input
                                     var minInput = document.createElement("input");
                                     minInput.setAttribute("type", "number");
                                     minInput.setAttribute("id", "min");
-                                    minInput.setAttribute("name", item);
+                                    minInput.setAttribute("name", value);
                                     dropdownItem.append(minInput);
                                     //create 'to' span
                                     var to = document.createElement("span");
@@ -205,14 +226,14 @@
                                     var maxInput = document.createElement("input");
                                     maxInput.setAttribute("type", "number");
                                     maxInput.setAttribute("id", "max");
-                                    maxInput.setAttribute("name", item);
+                                    maxInput.setAttribute("name", value);
                                     dropdownItem.append(maxInput);
 
                                 };
                             });
                 });
             
-                twoColumns.append(filterWrap);
+                twoColumns.prepend(filterWrap);
             };
 
             //sort menu item creation
@@ -738,7 +759,8 @@
                     cardGrid.append(createCard(item));
                 }),
                 main.append(cardGrid));
-
+            
+                createFilterMenu();
         </script>
     </body>
 </html>
