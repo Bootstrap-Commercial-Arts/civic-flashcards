@@ -228,12 +228,12 @@ h1 {
     padding: .5rem;
 }
 
-.dropdown-item.number {
+.dropdown-item.min-max, .dropdown-item.range {
     display: flex;
     justify-content: space-between;
 }
 
-.number input {
+.min-max input {
     border: #cccccc solid 1px;
     width: 7rem;
 }
@@ -242,8 +242,13 @@ h1 {
     background-color: #eaeaea;
 }
 
-.checkbox, .radio {
+.checkbox, .min-max, .radio, .range {
     filter: grayscale(1);
+}
+
+.range input {
+    width: 100%;
+    margin: -0.1rem 0.5rem;
 }
 
 .show {display:block;}
@@ -257,12 +262,12 @@ h1 {
     margin: 0 1rem;
     color:#333333;
     font-weight: 700;
-    width:calc(100% - 2.4rem);
+    width:calc(100% - 2.5rem);
     text-align: left;
 }
 
 #deck-select-dropdown {
-    width: calc(100% - 2.4rem);
+    width: calc(100% - 2.5rem);
 }
 
 #deck-select-dropdown > span {

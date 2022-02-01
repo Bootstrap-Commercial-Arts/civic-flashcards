@@ -23,106 +23,35 @@
         <div id="control-bar">
             <div class="filter-sort-wrapper">
                 <button id="filter-sort">Filter & Sort</button>
-                <div id="filter-sort-dropdown" class="dropdown-content" style="display: none">
-                    <div id="two-columns">
-                        <!--<div id="filter-wrap">
-                            <h3>Filter</h3>
-                            <div class="dropdown-group">
-                                <h4>State</h4>
-                                <div class="dropdown-group-items">
-                                    <div class="dropdown-item checkbox">
-                                        <input type="checkbox" id="senators" name="senators">
-                                        <label for="senators">Alaska</label>
-                                    </div>
-                                    <div class="dropdown-item checkbox">
-                                        <input type="checkbox" id="representatives" name="representatives">
-                                        <label for="representatives">Alabama</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown-group">
-                                <h4>Party</h4>
-                                <div class="dropdown-group-items">
-                                    <div class="dropdown-item checkbox">
-                                        <input type="checkbox" id="democrat" name="democrat">
-                                        <label for="democrat">Democrat</label>
-                                    </div>
-                                    <div class="dropdown-item checkbox">
-                                        <input type="checkbox" id="republican" name="republican">
-                                        <label for="republican">Republican</label>
-                                    </div>
-                                    <div class="dropdown-item checkbox">
-                                        <input type="checkbox" id="independent" name="independent">
-                                        <label for="independent">Independent</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="dropdown-group">
-                                <h4>Member Since</h4>
-                                <div class="dropdown-group-items">
-                                    <div class="dropdown-item number">
-                                        <input type="number"  id="min" name="min">
-                                        <span> to </span>
-                                        <input type="number" id="max" name="max">
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>-->
-                        <div id="sort-wrap">
-                            <h3>Sort</h3>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="name-sort" name="sort">
-                                <label for="name-sort">Name (a-z)</label>
-                            </div>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="name2-sort" name="sort">
-                                <label for="name2-sort">Name (z-a)</label>
-                            </div>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="member-since-sort" name="sort">
-                                <label for="member-since-sort">Member Since (asc)</label>
-                            </div>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="member-since2-sort" name="sort">
-                                <label for="member-since2-sort">Member Since (desc)</label>
-                            </div>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="state-sort" name="sort">
-                                <label for="state-sort">State</label>
-                            </div>
-                            <div class="dropdown-item radio">
-                                <input type="radio" id="party-sort" name="sort">
-                                <label for="party-sort">Party</label>
-                            </div>
-                        </div>
-                    </div>
-                    <input id="filter-sort-submit" type="submit" value="See Results">
-                </div>
+                <form id="filter-sort-dropdown" class="dropdown-content" name="filterSortForm" style="display: none">
+                    <div id="two-columns"></div>
+                    <input type="hidden" name="type" id="hidden-type">
+                    <button id="filter-sort-submit" type="submit">See Results</button>
+                </form>
             </div>
             
             <div class="deck-select-wrapper">
                 <button id="deck-select-field">Select your decks</button>
-                <div id="deck-select-dropdown" class="dropdown-content" style="display: none">
+                <form id="deck-select-dropdown" class="dropdown-content" name="deckSelectForm"  style="display: none">
                     <div class="dropdown-item checkbox">
-                        <input type="checkbox" id="senators" name="senators">
-                        <label for="senators">U.S. Senators</label>
+                        <input type="checkbox" value="senator" id="senator" name="senator">
+                        <label for="senator">U.S. Senators</label>
                     </div>
                     <div class="dropdown-item checkbox">
-                        <input type="checkbox" id="representatives" name="representatives">
-                        <label for="representatives">U.S. Representatives</label>
+                        <input type="checkbox" value="representative" id="representative" name="representative">
+                        <label for="representative">U.S. Representatives</label>
                     </div>
                     <div class="dropdown-item checkbox">
-                        <input type="checkbox" id="justices" name="justices">
-                        <label for="justices">Supreme Court Justices</label>
+                        <input type="checkbox" value="supremeCourt" id="supremeCourt" name="supremeCourt">
+                        <label for="supremeCourt">Supreme Court Justices</label>
                     </div>
                     <div class="dropdown-item checkbox">
-                        <input type="checkbox" id="secretaries" name="secretaries">
-                        <label for="secretaries">Cabinet Secretaries</label>
+                        <input type="checkbox" value="cabinet" id="cabinet" name="cabinet">
+                        <label for="cabinet">Cabinet Secretaries</label>
                     </div>
-                </div>
+                </form>
             </div>
-            <input type="submit" value="Deal Cards" id="deck-select-button">
+            <button type="submit" id="deck-select-button" form="deck-select-dropdown">Deal Cards</button>
         </div>
     </header>
     <main id="main">
@@ -141,21 +70,122 @@
             displayToggle('deck-select-field', 'deck-select-dropdown', {funcStyle: 'easyHide'});
             displayToggle('filter-sort', 'filter-sort-dropdown', {funcStyle: 'easyHide'});
 
+//FORM SUBMIT SCRIPT
+
+            //Set up vars
+            let sortFormData;
+            let filterFormObject = new Object();
+            let filterFormData = '';
+            let filterArray = [];
+            let typeArray = [];
+            let typeData;
+            let newQueryString;
+
+            //Deck Select form
+            const formD = document.forms.deckSelectForm;
+            function deckSelectSubmit(event) {
+                event.preventDefault();
+                const formData = new FormData(deckSelectForm);
+                for(var pair of formData.entries()) {
+                    typeArray.push(`"${pair[0]}"`);
+                };
+                typeData = typeArray.join('+');
+                window.location.href=`${location.origin}?type=${typeData}&popup=no`;
+            };
+
+            formD.addEventListener('submit', deckSelectSubmit);
+
+            //Sort & Filter form
+            const formFS = document.forms.filterSortForm;
+            function filterSortSubmit(event) {
+                //capture form data
+                event.preventDefault();
+                const formData = new FormData(filterSortForm);
+                for(var pair of formData.entries()) {
+                    if(pair[1] != '') {
+                        if(pair[0] === 'sort') {
+                            sortFormData = `sort=${pair[1]}`;
+                        }
+                        else if(pair[0] === 'type') {
+                            typeData = `type=${pair[1]}`.replaceAll('" "', '"+"');
+                        }
+                        else {
+                            if(!(filterFormObject[pair[0]])) {
+                                filterFormObject[pair[0]] = [];
+                            };
+                            filterFormObject[pair[0]].push(pair[1]);
+                        };
+                    };
+                };
+                // mutate filterFormObject into readable format and save as filterFormData
+                
+                const loopNestedObj = (obj) => {
+                    Object.keys(obj).forEach(key => {
+                        if (typeof obj[key] === 'object') {
+                            let valueString = obj[key].join('" || "');
+                            filterArray.push(`(${key} == "${valueString}")`);
+                        };
+                    });
+                    let encodedFilterData = encodeURI(filterArray.join(' && '));
+                    filterFormData = `filter=${encodedFilterData}`;
+                };
+
+                loopNestedObj(filterFormObject);
+
+                //create new URL params
+                console.log(`SORT: ${sortFormData} | FILTER: ${filterFormData} | TYPE: ${typeData}`);
+                if(sortFormData && !(filterFormData)) {
+                    console.log('sort only');
+                    newQueryString = `${typeData}&${sortFormData}`;
+                } else if (!(sortFormData) && filterFormData) {
+                    console.log('filter only');
+                    newQueryString = `${typeData}&${filterFormData}`;
+                } else if (sortFormData && filterFormData) {
+                    console.log('filter & sort');
+                    newQueryString = `${typeData}&${filterFormData}&${sortFormData}`;
+                } else {
+                    return {
+                        error: true,
+                        message: 'Parameter needed'
+                    }
+                }
+
+    
+            // HERE IS HOW YOU LOAD THE URL WITH NEW PARAMS:
+             window.location.href=`${location.origin}?${newQueryString}&popup=no`;
+            };
+
+            formFS.addEventListener('submit', filterSortSubmit);
+
+
+
+// SORT & FILTER DATA MATCHING SCRIPT
 
             //Set up layout vars for filter & sort menu
             var twoColumns = document.getElementById("two-columns");
 
             //potential sort/filter fields
-            var potentialSort = ['name', 'memberSince', 'party', 'state'];
-            var potentialFilter = ['memberSince', 'party', 'state', 'senateCommittee', 'houseCommittee'];
+            var potentialSort = [{data:'name+asc', label:'Name (a-z)'}, {data:'name+desc', label:'Name (z-a)'}, {data:'memberSince', label:'Member Since'}, {data:'party', label:'Party'}, {data:'state', label:'State'}];
+            var potentialFilter = [{name:'nominatedBy', label:'Nominated By', display:'checkbox'},
+                                 {name:'memberSince', label:'Member Since', display:'minMax'},
+                                 {name:'segalCoverScore', label:'Segal Cover Score', display:'minMax'},
+                                 {name:'position', label:'Position', display:'checkbox'}
+                                ];
 
             //go over data & match potential sort/filter fields with found fields
+            var sortFilterMatching = function(result){
+                //console.log(result.name)
+            }
 
             //fake found data for testing:
-            var matchedSort = ['name', 'memberSince', 'party', 'state'];
-            var matchedFilter = {memberSince:[2005, 2009, 2006, 2010, 1991, 2020, 2017, 1994, 2018], position:['Associate Justice', 'Chief Justice']};
+            var matchedSort = [{data:'name+asc', label:'Name (a-z)'}, {data:'name+desc', label:'Name (z-a)'}, {data:'memberSince', label:'Member Since'}, {data:'party', label:'Party'}, {data:'state', label:'State'}];
+            var matchedFilter = [{name:'nominatedBy', label:'Nominated By', matchedData:['George W. Bush', 'Barack Obama'], display:'checkbox'},
+                                 {name:'memberSince', label:'Member Since', matchedData:[2005, 2009, 2006, 2010, 1991, 2020, 2017, 1994, 2018], display:'minMax'},
+                                 {name:'segalCoverScore', label:'Segal Cover Score', matchedData:[7, 10, 25, 50, 75, 78], display:'minMax'},
+                                 {name:'position', label:'Position', matchedData:['Associate Justice', 'Chief Justice'], display:'checkbox'}
+                                ];
 
-            //Filter menu item creation
+//Filter menu item creation
             var createFilterMenu = function(){
 
                 //Filter Wrap
@@ -166,23 +196,16 @@
                 var filterTitle = document.createElement("h3");
                 filterTitle.innerHTML = 'Filter';
                 filterWrap.append(filterTitle);
-                
-
-//Diagnostic console logging
-Object.entries(matchedFilter).forEach(entry => {
-const [key, value] = entry;
-console.log(key, value);
-});
 
                 //Dropdown group
-                Object.entries(matchedFilter).forEach(entry => {
-                    const [key, value] = entry;
+                matchedFilter.forEach(entry => {
                     var dropdownGroup = document.createElement("div");
                     dropdownGroup.setAttribute("class", "dropdown-group");
+                    filterWrap.append(dropdownGroup);
 
                         //Group title
                         var dropdownGroupTitle = document.createElement("h4");
-                        dropdownGroupTitle.innerHTML = key;
+                        dropdownGroupTitle.innerHTML = entry.label;
                         dropdownGroup.append(dropdownGroupTitle);
 
                         //Group items
@@ -190,33 +213,35 @@ console.log(key, value);
                         dropdownGroupItems.setAttribute("class", "dropdown-group-items");
                         dropdownGroup.append(dropdownGroupItems);
 
-                            //individual item
-                            entry.forEach(function(value){
-                                var dropdownItem = document.createElement("div");
-                                dropdownItem.setAttribute("class", "dropdown-item");
-                                dropdownItem.setAttribute("class", value);
-                                dropdownGroupItems.append(dropdownItem);
-
-                                
-                                //content according to field type
-                                if(isNaN(value)){
-                                    //create input
-                                    var input = document.createElement("input");
-                                    input.setAttribute("type", "checkbox");
-                                    input.setAttribute("id", value);
-                                    input.setAttribute("name", key)
-                                    dropdownItem.append(input);
-                                    //create label
-                                    var label = document.createElement("label");
-                                    label.setAttribute("for", value);
-                                    label.innerHTML = value;
-                                    dropdownItem.append(label)
-                                } else {
+                            //individual items according to field type
+                                if(entry.display === 'checkbox'){
+                                    Object.values(entry.matchedData).forEach(function(singleEntry){  
+                                        //create item
+                                        var dropdownItem = document.createElement("div");
+                                        dropdownItem.setAttribute("class", "dropdown-item checkbox");
+                                        dropdownGroupItems.append(dropdownItem);
+                                        //create input
+                                        var input = document.createElement("input");
+                                        input.setAttribute("type", "checkbox");
+                                        input.setAttribute("value", singleEntry);
+                                        input.setAttribute("id", singleEntry);
+                                        input.setAttribute("name", entry.name);
+                                        dropdownItem.append(input);
+                                        //create label
+                                        var label = document.createElement("label");
+                                        label.setAttribute("for", singleEntry);
+                                        label.innerHTML = singleEntry;
+                                        dropdownItem.append(label)
+                                    });
+                                } else if(entry.display === 'minMax'){
+                                    //create item
+                                    var dropdownItem = document.createElement("div");
+                                    dropdownItem.setAttribute("class", "dropdown-item min-max");
+                                    dropdownGroupItems.append(dropdownItem);
                                     //create min input
                                     var minInput = document.createElement("input");
                                     minInput.setAttribute("type", "number");
-                                    minInput.setAttribute("id", "min");
-                                    minInput.setAttribute("name", value);
+                                    minInput.setAttribute("name", `${entry.name}Min`);
                                     dropdownItem.append(minInput);
                                     //create 'to' span
                                     var to = document.createElement("span");
@@ -225,76 +250,84 @@ console.log(key, value);
                                     //create max input
                                     var maxInput = document.createElement("input");
                                     maxInput.setAttribute("type", "number");
-                                    maxInput.setAttribute("id", "max");
-                                    maxInput.setAttribute("name", value);
+                                    maxInput.setAttribute("name", `${entry.name}Max`);
                                     dropdownItem.append(maxInput);
-
+                                } else if(entry.display === 'range'){
+                                    let rangeMax = Math.max.apply(null, entry.matchedData);
+                                    let rangeMin = Math.min.apply(null, entry.matchedData);
+                                    //create item
+                                    var dropdownItem = document.createElement("div");
+                                    dropdownItem.setAttribute("class", "dropdown-item range");
+                                    dropdownGroupItems.append(dropdownItem);
+                                    //create min label
+                                    var minLabel = document.createElement("span");
+                                    minLabel.innerHTML = rangeMin;
+                                    dropdownItem.append(minLabel);
+                                    //create input
+                                    var input = document.createElement("input");
+                                    input.setAttribute("type", "range");
+                                    input.setAttribute("value", entry.name);
+                                    input.setAttribute("name", entry.name)
+                                    dropdownItem.append(input);
+                                    //create max label
+                                    var maxLabel = document.createElement("span");
+                                    maxLabel.innerHTML = rangeMax;
+                                    dropdownItem.append(maxLabel);
                                 };
-                            });
+                            
                 });
-            
+                //assign hidden 'type' input
+                let typeInput = document.getElementById("hidden-type");
+                typeInput.setAttribute("value", params.type)
+
                 twoColumns.prepend(filterWrap);
             };
 
-            //sort menu item creation
-            var createsortMenu = function(resultFields){
+//Sort menu item creation
+            var createSortMenu = function(resultFields){
 
-                //Filter title
+                //Sort Wrap
+                var sortWrap = document.createElement("div");
+                sortWrap.setAttribute("id", "sort-wrap")
+
+
+                //Sort title
                 var sortTitle = document.createElement("h3");
                 sortTitle.innerHTML = 'Sort';
                 sortWrap.append(sortTitle);
 
                 //Dropdown group
-                resultFields.forEach(function(field, index){
-                    var dropdownGroup = document.createElement("div");
-                    dropdownGroup.setAttribute("class", "dropdown-group");
-
-                        //Group title
-                        var dropdownGroupTitle = document.createElement("h4");
-                        dropdownGroupTitle.innerHTML = resultFields.sort;
-                        dropdownGroup.append(dropdownGroupTitle);
-
-                        //Group items
-                        var dropdownGroupItems = document.createElement("div");
-                        dropdownGroupItems.setAttribute("class", "dropdown-group-items");
-                        dropdownGroup.append(dropdownGroupItems);
-
-                            //individual item
-                            field.forEach(function(item){
-                                var dropdownItem = document.createElement("div");
-                                dropdownItem.setAttribute("class", "dropdown-item");
-                                dropdownItem.setAttribute("class", item.type);
-                                dropdownGroupItems.append(dropdownItem);
-                                
-                                //create input
-                                var input = document.createElement("input");
-                                input.setAttribute("type", "radio");
-                                input.setAttribute("id", item);
-                                input.setAttribute("name", field)
-                                dropdownItem.append(input);
-                                
-                                //create label
-                                var label = document.createElement("label");
-                                label.setAttribute("for", item);
-                                label.innerHTML = item;
-                                dropdownItem.append(label)
-                                
-                            });
-                    });
+                matchedSort.forEach(entry => {
+                    var dropdownItem = document.createElement("div");
+                    dropdownItem.setAttribute("class", "dropdown-item radio");
+                    sortWrap.append(dropdownItem);
+                    
+                    //create input
+                    var input = document.createElement("input");
+                    input.setAttribute("type", "radio");
+                    input.setAttribute("value", entry.data);
+                    input.setAttribute("id", entry.data);
+                    input.setAttribute("name", "sort");
+                    dropdownItem.append(input);
+                    
+                    //create label
+                    var label = document.createElement("label");
+                    label.setAttribute("for", entry.data);
+                    label.innerHTML = entry.label;
+                    dropdownItem.append(label)
+                });
                 
                 twoColumns.append(sortWrap);
             };
 
             
-
+// CARD CREATION SCRIPT
 
             //Set up layout vars for card creation
             var main = document.getElementById("main");
             var cardGrid = document.createElement("div");
             cardGrid.setAttribute("class", "grid-row");
             cardGrid.setAttribute("id", "card-grid");
-
-
 
             //Individual card structure creation
             var createCard = function(result){
@@ -707,60 +740,59 @@ console.log(key, value);
             };
 
 // FETCH QUERY SCRIPT
-
+        if(params.type) {
             //Set up query vars
             const projectId = '6dyl9k59';
             const apiDate = 'v2022-01-01';
             const dataSet = 'production';
             const encodedProjection = encodeURIComponent(`_type == 'cabinet' => {_type, name, 'confirmationCommittee': confirmationCommittee[]->.senateCommitteeName, position, succession, cardLink, cardLink2, cardBackImage}, _type == 'representative' => {_type, name, state->, party->, district, assumedOffice, 'leadershipPositions': leadershipPositions[]->.houseLeadershipName, 'committeeAssignments': committeeAssignments[]->.CommitteeName, cardLink, cardBackImage}, _type == 'supremeCourt' => {_type, circuitAssignments[], name, memberSince, nominatedBy, position, segalCoverScore, cardLink, cardBackImage}, _type == 'senator' => {_type, name, party->, state->, leadershipPositions[], 'committeeAssignments': committeeAssignments[]->.senateCommitteeName, reelectionYear, cardLink, assumedOffice, cardBackImage}`);
-            const type = params.type.replace(' ', ', ');
+            const type = params.type.replaceAll(' ', ', ');
             const decodedFilter = decodeURI(params.filter);
-            const preFilter = decodedFilter.replace('+', ' && ');
-            const filter = preFilter.replace('_', ' == ');
+            const filter = decodedFilter.replaceAll('_', ' == ');
             let leftFilter;
             let rightFilter;
             let encodedFilter;
               
-            
             //check for filter parameters
             function createFilter(){
                 if(params.filter) {
-                    leftFilter = `[_type in [${type}] && ${filter}]`;
+                    leftFilter = `[_type in [${type}] && (${filter})]`;
                 } else {
                     leftFilter = `[_type in [${type}]]`;
                 }
                 return leftFilter;
             };
-            
-            createFilter();
 
+            createFilter();
 
             //check for sorting parameters, then create encoded filter
             function createSort() {
                 if(params.sort) {
-                    const sort = params.sort.replace('_', ' ')
+                    const sort = params.sort.replaceAll('_', ' ')
                      rightFilter = `order(${sort})`;
                      encodedFilter = encodeURIComponent(`${leftFilter} | ${rightFilter}`);
-                     console.log(`${leftFilter} | ${rightFilter}`)
                 } else {
                      encodedFilter = encodeURIComponent(leftFilter);
-                     console.log(`${leftFilter}`)
                 }
                 return encodedFilter;
             }
 
             createSort();
-         
 
             //fetch data & call the createCard function
+            
             fetch(`https://${projectId}.api.sanity.io/${apiDate}/data/query/${dataSet}?query=*${encodedFilter}{${encodedProjection}}`)
             .then(res => res.json())
             .then(cardData => cardData.result.forEach((item)=>{
-                    cardGrid.append(createCard(item));
-                }),
-                main.append(cardGrid));
+                cardGrid.append(createCard(item));
+                sortFilterMatching(item);
+            }),
+            main.append(cardGrid));
             
-                createFilterMenu();
+            //call filter & sort menu creation functions
+            createFilterMenu();
+            createSortMenu();
+        };
         </script>
     </body>
 </html>
