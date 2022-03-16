@@ -40,7 +40,7 @@ button, input {
     background-color: unset;
 }
 
-button:hover {
+button:hover, #reset-button:hover {
     filter: brightness(0.9);
 }
 
@@ -188,13 +188,26 @@ h1 {
 }
 
 #filter-sort-submit {
-    width: calc(100% - 1rem);
+    width: calc(100% - 8rem);
     padding: 1rem;
     background-color: #cccccc;
     margin: 0.5rem;
     font-family: 'Lato';
     text-transform: uppercase;
     letter-spacing: 2px;
+}
+
+#reset-button{
+    padding: 1rem;
+    margin: 0.5rem;
+    margin-left: 0;
+    font-family: 'Lato';
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border: #333333 solid 1px;
+    background-color: #ffffff;
+    width: 6rem;
+    box-sizing: border-box;
 }
 
 #filter-sort-submit:hover {
@@ -215,12 +228,22 @@ h1 {
     margin-left: 1rem;
   }
 
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: #333333 solid 1px;
+    margin-bottom: 0.5rem;
+}
 .dropdown-group h4 {
     margin: 1rem 1rem 0;
 }
 
+.toggle {
+    cursor: pointer;
+}
+
 .dropdown-group-items {
-    border-bottom: #333333 solid 1px;
     margin: 0 1rem;
 }
 
