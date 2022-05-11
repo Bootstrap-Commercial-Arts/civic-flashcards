@@ -48,8 +48,8 @@
 
                                 //Party & State
                                 var partyAndState = document.createElement("h2");
-                                var partyInitial = result.party.partyName.slice(0,1);
-                                partyAndState.innerHTML = `(${partyInitial}) ${result.state.stateAbbr}`;
+                                var partyInitial = result.party.slice(0,1);
+                                partyAndState.innerHTML = `(${partyInitial}) ${result.stateAbbr}`;
                                 cardHeader.append(partyAndState);
 
                             //Card-body div
@@ -172,19 +172,19 @@
                                     nominatedBy.append(nominatedByContent);
 
                                 //Member-since
-                                var memberSince = document.createElement("div");
-                                memberSince.setAttribute("class", "member-since");
-                                cardBody.append(memberSince);
+                                var assumedOffice = document.createElement("div");
+                                assumedOffice.setAttribute("class", "member-since");
+                                cardBody.append(assumedOffice);
 
                                     //Leadership positions label
-                                    var memberSinceLabel = document.createElement("h3");
-                                    memberSinceLabel.innerHTML = "Justice Since"
-                                    memberSince.append(memberSinceLabel);
+                                    var assumedOfficeLabel = document.createElement("h3");
+                                    assumedOfficeLabel.innerHTML = "Justice Since"
+                                    assumedOffice.append(assumedOfficeLabel);
 
                                     //Leadership positions content
-                                    var memberSinceContent = document.createElement("p");
-                                    memberSinceContent.innerHTML = result.memberSince;
-                                    memberSince.append(memberSinceContent);
+                                    var assumedOfficeContent = document.createElement("p");
+                                    assumedOfficeContent.innerHTML = result.assumedOffice;
+                                    assumedOffice.append(assumedOfficeContent);
 
                                 //Circuit-assignments
                                 var circuitAssignments = document.createElement("div");
@@ -272,8 +272,8 @@
 
                                 //Party & State & District
                                 var partyStateDistrict = document.createElement("h2");
-                                var partyInitial = result.party.partyName.slice(0,1);
-                                partyStateDistrict.innerHTML = `(${partyInitial}) ${result.state.stateAbbr}-${result.district}`;
+                                var partyInitial = result.party.slice(0,1);
+                                partyStateDistrict.innerHTML = `(${partyInitial}) ${result.stateAbbr}-${result.district}`;
                                 cardHeader.append(partyStateDistrict);
 
                             //Card-body div

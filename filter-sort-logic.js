@@ -69,21 +69,23 @@
                     if(obj[key][0] == 'checkbox') {
                         if(obj[key][1]) {
                             let cleanedValue = obj[key].slice(1);
-                            let valueString = cleanedValue.join('" || "');
-                            filterArray.push(`(${key} == "${valueString}")`);
+                            let valueString = cleanedValue.join('", "');
+                            filterArray.push(`"${key}"=["${valueString}"]`);
                         };
                     } else if(obj[key][0] == 'minMax') {
                         if(isNaN(obj[key][1]) && !isNaN(obj[key][2])) {
-                            filterArray.push(`${key} <= ${obj[key][2]}`);
+                            filterArray.push(`"${key}"="< ${obj[key][2]}"`);
                         } else if(!isNaN(obj[key][1]) && isNaN(obj[key][2])){
-                            filterArray.push(`${key} >= ${obj[key][1]}`);
+                            filterArray.push(`"${key}"="> ${obj[key][1]}"`);
                         }else if(!isNaN(obj[key][1]) && !isNaN(obj[key][2])){
-                            filterArray.push(`(${key} >= ${obj[key][1]} , ${key} <= ${obj[key][2]})`);
+                            filterArray.push(`"${key}"=["> ${obj[key][1]}", "< ${obj[key][2]}"]`);
                         };
+                    } else if(obj[key][0] == 'boolean' && obj[key][1] == 'true') {
+                        filterArray.push(`"${key}"=true`);
                     };
                 };
             });
-            encodedFilterData = encodeURI(filterArray.join(' , '));
+            encodedFilterData = encodeURIComponent(filterArray.join('&'));
             filterFormData = `filter=${encodedFilterData}`;
             
         };
@@ -91,7 +93,6 @@
         loopNestedObj(filterFormObject);
 
         //create new URL params
-        console.log(`SORT: ${sortFormData} | FILTER: ${filterFormData} | TYPE: ${typeData}`);
         if(!(sortFormData) && !(encodedFilterData)) {
             newQueryString = `${typeData}`;
         } else if(sortFormData && !(encodedFilterData)) {
@@ -121,17 +122,19 @@
     var potentialSort = [{field:'name', value:'name+asc', label:'Name (a-z)'}, 
                             {field:'name', value:'name+desc', label:'Name (z-a)'},
                             {field:'party', value:'party+asc', label:'Party'},
-                            {field:'memberSince', value:'memberSince+asc', label:'Member Since'},
+                            {field:'assumedOffice', value:'assumedOffice+asc', label:'Assumed Office'},
                             {field:'reelectionYear', value:'reelectionYear+asc', label:'Reelection Year'},
                             {field:'state', value:'state+asc', label:'State'},
                             {field:'succession', value:'succession+asc', label:'Order of Succession'}
                         ];
-    var potentialFilter = [{field:'nominatedBy', value: 'nominatedBy', label:'Nominated By', display:'checkbox', data:[]},
-                            {field:'party', value: 'partyName->.partyName', label:'Party', display:'checkbox', data:[]},
-                            {field:'memberSince', value: 'memberSince', label:'Member Since', display:'minMax', data:[]},
-                            {field:'segalCoverScore', value: 'segalCoverScore', label:'Segal Cover Score', display:'minMax', data:[]},
-                            {field:'state', label:'State', value: '.stateName', display:'checkbox', data:[]},
-                            {field:'confirmationCommittee', value: 'confirmationCommittee[]->.senateCommitteeName', label:'Confirmation Committee', display:'checkbox', data:[]}
+    var potentialFilter = [{field:'nominatedBy', label:'Nominated By', display:'checkbox', data:[]},
+                            {field:'party', label:'Party', display:'checkbox', data:[]},
+                            {field:'assumedOffice', label:'Assumed Office', display:'minMax', data:[]},
+                            {field:'segalCoverScore', label:'Segal Cover Score', display:'minMax', data:[]},
+                            {field:'leadershipPositions', label:'Leadership', display:'boolean', data:[]},
+                            {field:'committeeAssignments', label:'Committee Assignments', display:'checkbox', data:[]},
+                            {field:'state', label:'State', display:'checkbox', data:[]},
+                            {field:'confirmationCommittee', label:'Confirmation Committee', display:'checkbox', data:[]}
                         ];
 
     //create found data vars
@@ -153,23 +156,22 @@
 
             //Filter Matching
             potentialFilter.forEach(filterField => {
-                if(key == filterField.field){
-                    if (!matchedFilter.includes(filterField)){
-                        let matchedData = filterField;
-                        matchedData.data = new Set;
-                        matchedData.data.add(value);
-                        matchedFilter.push(matchedData);
-                    } else {
-                        let i = matchedFilter.indexOf(filterField);
-                        matchedFilter[i].data.add(value);
-                    }
-                    
+                if(key == filterField.field && value){
+                    if(value.length > 0 || typeof value == 'number') {
+                        if (!matchedFilter.includes(filterField)){
+                            let matchedData = filterField;
+                            matchedData.data = new Set;
+                            matchedData.data.add(value);
+                            matchedFilter.push(matchedData);
+                        } else {
+                            let i = matchedFilter.indexOf(filterField);
+                            matchedFilter[i].data.add(value);
+                        };
+                    };
                 };
             });
         };
     };
-
-    console.log(matchedFilter);
 
 
 var uniqueResults = function(){
