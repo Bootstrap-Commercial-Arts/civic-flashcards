@@ -73,6 +73,8 @@ var createFilterMenu = function(){
                             minInput.setAttribute("type", "number");
                             minInput.setAttribute("name", entry.field);
                             minInput.setAttribute("id", `min-${entry.field}`);
+                            let rangeMin = Math.min.apply(null, entry.matchedData);
+                            minInput.placeholder = rangeMin;
                             dropdownItem.append(minInput);
                         //create 'to' span
                             var to = document.createElement("span");
@@ -83,6 +85,8 @@ var createFilterMenu = function(){
                             maxInput.setAttribute("type", "number");
                             maxInput.setAttribute("name", entry.field);
                             maxInput.setAttribute("id", `max-${entry.field}`);
+                            let rangeMax = Math.max.apply(null, entry.matchedData);
+                            maxInput.placeholder = rangeMax;
                             dropdownItem.append(maxInput);
                     } else if(entry.display === 'range'){
                         //create hidden display type input

@@ -15,7 +15,7 @@ let fillFilterForm = function(filterObject) {
                     let minNumber = value.slice(3);
                     filterBy = document.getElementById(`min-${key}`);
                     filterBy.value = minNumber;
-                } else if(value.includes('<')) {
+                } if(value.includes('<')) {
                     let maxNumber = value.slice(3);
                     filterBy = document.getElementById(`max-${key}`);
                     filterBy.value = maxNumber;
@@ -35,7 +35,6 @@ let fillFilterForm = function(filterObject) {
                 filterBy.checked = true;
             } else if(typeof(value) == 'object') {
                 value.forEach((item) => {
-                    console.log(item)
                     var filterBy = document.getElementById(item);
                     filterBy.checked = true;
                 });
@@ -54,3 +53,13 @@ let fillSortForm = function() {
 
 
                 //var filterBy = document.querySelector(`[name='${key}']`)
+
+//Type fill
+
+let fillTypeForm = function() {
+    var types = params.type.replaceAll('"', '').split(' ');
+    types.forEach(type => {
+        var typeBy = document.getElementById(type);
+        typeBy.checked = true;
+    });
+}

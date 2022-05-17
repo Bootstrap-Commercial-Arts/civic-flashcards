@@ -71,6 +71,9 @@ if(params.type) {
         if(params.filter) {
             fillFilterForm(filterObject);
         }
+        if(params.type) {
+            fillTypeForm();
+        }
     })
     .catch(noCards);
 };

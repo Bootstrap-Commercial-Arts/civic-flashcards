@@ -35,13 +35,12 @@
         minMaxFields.forEach(function(fieldGroup) {
             var fields = fieldGroup.getElementsByTagName("input");
             for (let field of fields) {
-                if(isNaN(field)){
+                if(field.value.toString().length == 0){
                     field.setAttribute('type', 'text');
                     field.setAttribute('value', 'null');
                 };
             }
         });
-        
 
         const formData = new FormData(filterSortForm);
         for(var pair of formData.entries()) {
