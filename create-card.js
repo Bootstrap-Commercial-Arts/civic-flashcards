@@ -415,3 +415,11 @@
                         }
                 return card;
             };
+
+var noCards = function(result){
+    var noCardGrid = document.createElement("div");
+    noCardGrid.setAttribute("id", "no-card-grid");
+    noCardGrid.innerHTML = `<p>This is a test</p>`;
+    
+    main.append(noCardGrid);
+}

@@ -496,13 +496,19 @@ input::placeholder {
 
 /* page styles */
 
-#card-grid{
+#card-grid {
             grid-auto-flow: row; 
             grid-template-columns: 1fr 1fr 1fr 1fr; 
             grid-auto-rows: auto; 
             gap: 4rem 2rem; 
 }
 
+#no-card-grid {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 25vh;
+}
 
 
 

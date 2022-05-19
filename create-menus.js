@@ -39,7 +39,7 @@ var createFilterMenu = function(){
                         hiddenDisplayType.setAttribute("name", entry.field);
                         hiddenDisplayType.setAttribute("value", entry.display)                            
                         dropdownGroupItems.append(hiddenDisplayType);
-                        Object.values(entry.matchedData).forEach(function(singleEntry){  
+                        Object.values(entry.uniqueData).forEach(function(singleEntry){  
                             //create item
                             var dropdownItem = document.createElement("div");
                             dropdownItem.setAttribute("class", "dropdown-item checkbox");
@@ -73,7 +73,7 @@ var createFilterMenu = function(){
                             minInput.setAttribute("type", "number");
                             minInput.setAttribute("name", entry.field);
                             minInput.setAttribute("id", `min-${entry.field}`);
-                            let rangeMin = Math.min.apply(null, entry.matchedData);
+                            let rangeMin = Math.min.apply(null, entry.uniqueData);
                             minInput.placeholder = rangeMin;
                             dropdownItem.append(minInput);
                         //create 'to' span
@@ -85,7 +85,7 @@ var createFilterMenu = function(){
                             maxInput.setAttribute("type", "number");
                             maxInput.setAttribute("name", entry.field);
                             maxInput.setAttribute("id", `max-${entry.field}`);
-                            let rangeMax = Math.max.apply(null, entry.matchedData);
+                            let rangeMax = Math.max.apply(null, entry.uniqueData);
                             maxInput.placeholder = rangeMax;
                             dropdownItem.append(maxInput);
                     } else if(entry.display === 'range'){
@@ -95,8 +95,8 @@ var createFilterMenu = function(){
                         hiddenDisplayType.setAttribute("name", entry.field);
                         hiddenDisplayType.setAttribute("value", entry.display)                            
                         dropdownGroupItems.append(hiddenDisplayType);
-                        let rangeMax = Math.max.apply(null, entry.matchedData);
-                        let rangeMin = Math.min.apply(null, entry.matchedData);
+                        let rangeMax = Math.max.apply(null, entry.uniqueData);
+                        let rangeMin = Math.min.apply(null, entry.uniqueData);
                         //create item
                         var dropdownItem = document.createElement("div");
                         dropdownItem.setAttribute("class", "dropdown-item range");

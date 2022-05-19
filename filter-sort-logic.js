@@ -37,7 +37,7 @@
             for (let field of fields) {
                 if(field.value.toString().length == 0){
                     field.setAttribute('type', 'text');
-                    field.setAttribute('value', 'null');
+                    field.value = 'null';
                 };
             }
         });
@@ -159,13 +159,14 @@
                     if(value.length > 0 || typeof value == 'number') {
                         if (!matchedFilter.includes(filterField)){
                             let matchedData = filterField;
-                            matchedData.data = new Set;
-                            matchedData.data.add(value);
+                            matchedData.data = new Array;
+                            matchedData.data.push(value);
                             matchedFilter.push(matchedData);
                         } else {
                             let i = matchedFilter.indexOf(filterField);
-                            matchedFilter[i].data.add(value);
+                            matchedFilter[i].data.push(value);
                         };
+                    
                     };
                 };
             });
@@ -174,7 +175,8 @@
 
 
 var uniqueResults = function(){
-    matchedFilter.forEach((matchedField) => {
-        matchedField.matchedData = Array.from(matchedField.data);
+    matchedFilter.forEach((matchedField, i) => {
+        matchedField.matchedData = matchedField.data.flat(Infinity);
+        matchedField.uniqueData = [...new Set(matchedField.matchedData)];
     });
 };

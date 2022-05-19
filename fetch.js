@@ -60,27 +60,27 @@ if(params.type) {
             cardGrid.append(createCard(item));  
             sortFilterMatching(item);  
         });
-        main.append(cardGrid);
-        uniqueResults();
-        createFilterMenu();
-        createSortMenu();
-        toggleSet();
-        if(params.sort) {
-            fillSortForm();
+        if(res.result.length > 0) {
+            main.append(cardGrid);
+            uniqueResults();
+            createFilterMenu();
+            createSortMenu();
+            toggleSet();
+            if(params.sort) {
+                fillSortForm();
+            }
+            if(params.filter) {
+                fillFilterForm(filterObject);
+            }
+            if(params.type) {
+                fillTypeForm();
+            }
         }
-        if(params.filter) {
-            fillFilterForm(filterObject);
-        }
-        if(params.type) {
-            fillTypeForm();
+        else {
+            noCards();
         }
     })
-    .catch(noCards);
 };
-
-var noCards = function() {
-    window.alert('this is an error')
-}
 
 
 
