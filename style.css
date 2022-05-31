@@ -100,6 +100,11 @@ h1 {
     background-color: #ffffff;
 }
 
+#modal-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
 #modal-overlay {
     width: 100vw;
     height: 100vh;
@@ -113,14 +118,10 @@ h1 {
 #modal-close {
     z-index: 999;
     font-family: lato;
-    display: inline-block;
     background-color: #eaeaea;
     padding: 1rem;
-    margin-bottom: 3rem;
-    position:absolute;
-    right: 0;
-    top: -100%;
     cursor: pointer;
+    float: right;
 
 }
 
@@ -508,6 +509,16 @@ input::placeholder {
     align-items: center;
     justify-content: center;
     min-height: 25vh;
+    flex-direction: column;
+}
+
+#no-card-grid a {
+    color: #E39600;
+}
+
+#no-card-grid h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 

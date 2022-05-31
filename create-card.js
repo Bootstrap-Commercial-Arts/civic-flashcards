@@ -418,8 +418,14 @@
 
 var noCards = function(result){
     var noCardGrid = document.createElement("div");
+    var message = `<h3>Sorry, there are no cards left in the deck.</h3>
+    <p>Try selecting another deck using the menu above</p>`
+    if(params.type) {
+        var typeOnly = location.origin + '?type=' + params.type.replaceAll(' ', '+').replaceAll('"', '&quot;') + '&popup=no';
+        message = message.concat(`<p>or, <a href="${typeOnly}">reset your filters</a></p>`);
+    } 
     noCardGrid.setAttribute("id", "no-card-grid");
-    noCardGrid.innerHTML = `<p>This is a test</p>`;
-    
+    noCardGrid.innerHTML = message
+                            
     main.append(noCardGrid);
 }

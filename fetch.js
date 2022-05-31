@@ -80,6 +80,9 @@ if(params.type) {
             noCards();
         }
     })
+    
+} else {
+    noCards();
 };
 
 
