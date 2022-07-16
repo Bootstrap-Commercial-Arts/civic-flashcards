@@ -129,6 +129,7 @@
     var potentialFilter = [{field:'nominatedBy', label:'Nominated By', display:'checkbox', data:[]},
                             {field:'party', label:'Party', display:'checkbox', data:[]},
                             {field:'assumedOffice', label:'Assumed Office', display:'minMax', data:[]},
+                            {field:'reelectionYear', label:'Reelection Year', value:'reelectionYear', display:'checkbox', data:[]},
                             {field:'segalCoverScore', label:'Segal Cover Score', display:'minMax', data:[]},
                             {field:'leadershipPositions', label:'Leadership', display:'boolean', data:[]},
                             {field:'committeeAssignments', label:'Committee Assignments', display:'checkbox', data:[]},
